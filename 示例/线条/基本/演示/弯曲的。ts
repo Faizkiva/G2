@@ -1,0 +1,71 @@
+import { Chart } from '@antv/g2';
+
+const data = [
+  { month: '0点', city: '新用户', temperature: 7 },
+  { month: '0点', city: '老用户', temperature: 3.9 },
+  { month: '1点', city: '新用户', temperature: 6.9 },
+  { month: '1点', city: '老用户', temperature: 4.2 },
+  { month: '2点', city: '新用户', temperature: 9.5 },
+  { month: '2点', city: '老用户', temperature: 5.7 },
+  { month: '3点', city: '新用户', temperature: 14.5 },
+  { month: '3点', city: '老用户', temperature: 8.5 },
+  { month: '4点', city: '新用户', temperature: 18.4 },
+  { month: '4点', city: '老用户', temperature: 11.9 },
+  { month: '5点', city: '新用户', temperature: 21.5 },
+  { month: '5点', city: '老用户', temperature: 15.2 },
+  { month: '6点', city: '新用户', temperature: 25.2 },
+  { month: '6点', city: '老用户', temperature: 17 },
+  { month: '7点', city: '新用户', temperature: 26.5 },
+  { month: '7点', city: '老用户', temperature: 16.6 },
+  { month: '8点', city: '新用户', temperature: 23.3 },
+  { month: '8点', city: '老用户', temperature: 14.2 },
+  { month: '9点', city: '新用户', temperature: 18.3 },
+  { month: '9点', city: '老用户', temperature: 10.3 },
+  { month: '10点', city: '新用户', temperature: 13.9 },
+  { month: '10点', city: '老用户', temperature: 6.6 },
+  { month: '11点', city: '新用户', temperature: 9.6 },
+  { month: '11点', city: '老用户', temperature: 4.8 },
+];
+
+const chart = new Chart({
+  container: 'container',
+  autoFit: true,
+  height: 500,
+});
+
+chart.data(data);
+chart.scale({
+  month: {
+    range: [0, 1],
+  },
+  temperature: {
+    nice: true,
+  },
+});
+
+chart.tooltip({
+  showCrosshairs: true,
+  shared: true,
+});
+
+chart.axis('temperature', {
+  label: {
+    formatter: (val) => {
+      return val + ' 元';
+    },
+  },
+});
+
+chart
+  .line()
+  .position('month*temperature')
+  .color('city')
+  .shape('smooth');
+
+chart
+  .point()
+  .position('month*temperature')
+  .color('city')
+  .shape('circle');
+
+chart.render();
